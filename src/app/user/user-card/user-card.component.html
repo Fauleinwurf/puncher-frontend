@@ -1,0 +1,27 @@
+<mat-card [class.new-user]="!user.id">
+  <mat-card-title-group>
+    <mat-card-title>User ({{user?.username}})
+    </mat-card-title>
+  </mat-card-title-group>
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Username:</mat-label>
+      <input required matInput placeholder="max.muster" [(ngModel)]="user.username">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password:</mat-label>
+      <input type="password" required matInput placeholder="*********" [(ngModel)]="user.password">
+    </mat-form-field>
+
+    <div class="action-container">
+      <button (click)="save()" mat-fab color="primary" aria-label="Example icon button with a delete icon" title="Save user">
+        <mat-icon>save</mat-icon>
+      </button>
+
+      <button (click)="delete()" mat-fab color="primary" aria-label="Example icon button with a delete icon" title="Delete user">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

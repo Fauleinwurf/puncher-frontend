@@ -1,0 +1,19 @@
+<h1 *ngIf="entries?.length === 0">You currently have no entries!</h1>
+
+<div class="action-container">
+  <button *ngIf="loggedInUser" class="action-container" (click)="addEntry()" mat-fab color="primary" aria-label="Example icon button with a note_add icon" title="Add entry">
+    <mat-icon>note_add</mat-icon>
+  </button>
+</div>
+<div class="list-container" >
+<ul>
+  <ng-container *ngFor="let entry of entries">
+    <app-entry-li *ngIf="entry?.user?.username === loggedInUser?.username || loggedInUser?.role === 'admin' || !entry?.id"
+                  [categories]="categories"
+                  [users]="users"
+                  [loggedInUser]="loggedInUser"
+                  [entry]="entry"
+                  (deleteEntry)="reloadEntries()"></app-entry-li>
+  </ng-container>
+</ul>
+</div>

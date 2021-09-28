@@ -1,0 +1,29 @@
+div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.action-container {
+  flex-direction: column;
+}
+
+div button{
+  margin: 16px auto auto;
+}
+
+h1 {
+  color: aliceblue;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.message {
+  width: 90%;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  width: 100%;
+}

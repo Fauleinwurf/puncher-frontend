@@ -1,0 +1,22 @@
+mat-card {
+  max-width: 400px;
+  margin: 24px auto auto;
+}
+
+mat-form-field {
+  font-size: 1.2em;
+  width: 100%;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.action-container button {
+  margin-left: 8px;
+}
+
+mat-card.new-user {
+  background-color: #FED000;
+}

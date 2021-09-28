@@ -1,0 +1,12 @@
+<h1>Your User</h1>
+<div>
+  <app-user-card [user]="loggedInUser" [loggedInUser]="loggedInUser" ></app-user-card>
+</div>
+
+<ng-container *ngIf="loggedInUser.role === 'admin'">
+  <h2>Other Users</h2>
+  <div>
+    <app-user-card *ngFor="let user of users" [user]="user" [users]="users"
+                   [loggedInUser]="loggedInUser"></app-user-card>
+  </div>
+</ng-container>

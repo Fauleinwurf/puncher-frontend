@@ -1,0 +1,33 @@
+<h1 *ngIf="categories?.length === 0">You currently have no entries!</h1>
+
+<div class="action-container" *ngIf="loggedInUser?.role === 'admin'" >
+  <button class="action-container" (click)="addCategory()" mat-fab color="primary" aria-label="Example icon button with a note_add icon" title="Add category">
+    <mat-icon>note_add</mat-icon>
+  </button>
+</div>
+<div>
+  <ng-container *ngFor="let category of categories">
+    <mat-card [class.new-category]="!category.id">
+      <mat-card-title-group>
+        <mat-card-title>
+          <mat-form-field appearance="fill">
+            <mat-label>Title:</mat-label>
+            <input required matInput placeholder="HR" [(ngModel)]="category.title">
+          </mat-form-field>
+        </mat-card-title>
+      </mat-card-title-group>
+      <mat-card-content>
+        <div class="action-container">
+          <button (click)="save(category)" mat-fab color="primary" aria-label="Example icon button with a delete icon" title="Save category">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button (click)="delete(category)" mat-fab color="primary" aria-label="Example icon button with a delete icon" title="Delete category">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>
+

@@ -1,0 +1,22 @@
+.companyName{
+  font-size: 150%;
+  margin-left: 8px;
+}
+
+.mat-toolbar{
+  height: 7vh;
+}
+
+div {
+  overflow: inherit;
+}
+
+a{
+  text-decoration: none;
+  font-size: 110%;
+  white-space: normal;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

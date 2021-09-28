@@ -1,0 +1,58 @@
+<li [class.new-entry]="!entry?.id">
+  <div class="action-container">
+    <button (click)="save()" mat-fab color="primary" aria-label="Example icon button with a delete icon"
+            title="Save changes">
+      <mat-icon>save</mat-icon>
+    </button>
+
+    <button (click)="delete()" mat-fab color="primary" aria-label="Example icon button with a delete icon"
+            title="Delete entry">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field *ngIf="isAdmin" appearance="fill">
+    <mat-label>Select a user:</mat-label>
+    <mat-select [value]="entry?.user?.username">
+      <mat-option *ngFor="let user of users" (click)="changeUser(user)"
+                  [value]="user.username">{{user.username}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="category" appearance="fill">
+    <mat-label>Select a category:</mat-label>
+    <mat-select [value]="entry?.category?.title">
+      <mat-option *ngFor="let category of categories" (click)="changeCategory(category)"
+                  [value]="category.title">{{category.title}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div class="check-in">
+    <mat-form-field appearance="fill">
+      <mat-label>CheckIn-date</mat-label>
+      <input required matInput [matDatepicker]="picker" [formControl]="chekIn">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>CheckIn-time:</mat-label>
+      <input required matInput placeholder="Format: HH:mm:ss" [(ngModel)]="chekInTime">
+    </mat-form-field>
+  </div>
+
+  <div class="check-out">
+    <mat-form-field appearance="fill">
+      <mat-label>CheckOut-date</mat-label>
+      <input required matInput [matDatepicker]="picker2" [formControl]="chekOut">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>CheckOut-time:</mat-label>
+      <input required matInput placeholder="Format: HH:mm:ss" [(ngModel)]="chekOutTime">
+    </mat-form-field>
+  </div>
+</li>

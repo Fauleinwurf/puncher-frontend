@@ -1,0 +1,15 @@
+<div>
+  <mat-toolbar color="primary">
+    <mat-icon>alarm_add</mat-icon>
+
+    <span class="companyName">PunchClock</span>
+    <span class="spacer"></span>
+    <div>
+      <a mat-button [routerLink]="['/users']" [routerLinkActive]="'is-active'">Users</a>
+      <a mat-button *ngIf="user.role === 'admin'" [routerLink]="['/categories']" [routerLinkActive]="'is-active'">Categories</a>
+      <a mat-button [routerLink]="['/entries']" [routerLinkActive]="'is-active'">Entries</a>
+      <a mat-button [routerLink]="['/login']" (click)="logout()">logout</a>
+    </div>
+
+  </mat-toolbar>
+</div>
