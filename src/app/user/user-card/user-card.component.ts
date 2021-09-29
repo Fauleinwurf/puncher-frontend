@@ -30,7 +30,6 @@ export class UserCardComponent implements OnInit {
   }
 
   public save(): void {
-    console.log(this.user)
     if (this.user.id) {
       this.userService.update$(this.user).subscribe((user) => this.user = user);
     } else {

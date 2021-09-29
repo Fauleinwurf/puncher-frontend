@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Entry} from "../model/entry";
 import {environment} from "../../environments/environment";
 import {Observable} from 'rxjs';
 import {Category} from "../model/category";
@@ -9,8 +10,8 @@ import {Project} from "../model/project";
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService implements Service{
-  private configUrl = `${environment.apiUrl}/categories`;
+export class ProjectService implements Service{
+  private configUrl = `${environment.apiUrl}/projects`;
 
   constructor(private http: HttpClient) {
 
@@ -25,19 +26,16 @@ export class CategoryService implements Service{
 
   }
 
-  public update$(object: any): Observable<any> {
-    return this.http.put<Category>(`${this.configUrl}/${object?.id}`,object);
+  public update$(project: Project): Observable<any> {
+    return this.http.put<Project>(`${this.configUrl}/${project?.id}`,project);
   }
 
-  public delete$(category: Category): Observable<any> {
-    return this.http.delete<void>(`${this.configUrl}/${category?.id}`);
+  public delete$(project: Project): Observable<any> {
+    return this.http.delete<void>(`${this.configUrl}/${project?.id}`);
   }
 
-  public insert$(category: Category): Observable<any> {
-    return this.http.post<Category>(`${this.configUrl}`,category);
+  public insert$(project: Project): Observable<any> {
+    return this.http.post<Project>(`${this.configUrl}`,project);
   }
 
-  public findProjectsByCategory(id: number): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.configUrl}/${id}/projects`);
-  }
 }

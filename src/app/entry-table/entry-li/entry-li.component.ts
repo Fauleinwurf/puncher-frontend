@@ -4,8 +4,9 @@ import {Category} from "../../../shared/model/category";
 import {User} from "../../../shared/model/user";
 import {EntryService} from "../../../shared/services/entry.service";
 import {DatePipe} from "@angular/common";
-import {AuthenticationService} from "../../../shared/services/authentication.service";
 import {FormControl} from "@angular/forms";
+import {Project} from "../../../shared/model/project";
+import {CategoryService} from "../../../shared/services/category.service";
 
 @Component({
   selector: 'app-entry-li',
@@ -16,13 +17,14 @@ export class EntryLiComponent implements OnInit {
   @Input()
   public entry!: Entry;
   @Input()
-  public categories!: Category[]
+  public categories!: Category[];
   @Input()
-  public users!: User[]
+  public users!: User[];
   @Input()
-  public loggedInUser!: User
+  public loggedInUser!: User;
 
   @Output() deleteEntry = new EventEmitter<Entry>();
+  @Output() saveEntry = new EventEmitter<Entry>();
 
   public chekIn: any;
   public chekOut: any;
@@ -30,8 +32,10 @@ export class EntryLiComponent implements OnInit {
   public chekOutTime: any;
   public isAdmin: any;
   public isOperationInProgress = false;
+  public projectsOfCategory: Project[] = [];
 
   constructor(private entryService: EntryService,
+              private categoryService: CategoryService,
               public datepipe: DatePipe
   ) {
   }
@@ -42,12 +46,14 @@ export class EntryLiComponent implements OnInit {
     }
 
     this.chekIn = new FormControl(this.entry?.checkIn);
+
     this.chekOut = new FormControl(this.entry?.checkOut);
-
     this.chekInTime = this.datepipe.transform(this.entry?.checkIn, 'HH:mm:ss');
-    this.chekOutTime = this.datepipe.transform(this.entry?.checkOut, 'HH:mm:ss');
 
+    this.chekOutTime = this.datepipe.transform(this.entry?.checkOut, 'HH:mm:ss');
     this.isAdmin = this.loggedInUser.role === 'admin';
+
+    this.updateProjectsOfCategory(this.entry?.project?.category);
   }
 
   public save(): void {
@@ -58,21 +64,31 @@ export class EntryLiComponent implements OnInit {
     let checkOutString = this.datepipe.transform(this.chekOut.value, 'yyyy-MM-dd') + 'T' + this.chekOutTime;
     console.log(checkInString)
     this.entry.checkOut = new Date(checkOutString);
-    if (this.entry?.id) {
-      this.entryService.update$(this.entry).subscribe((entry) => this.entry = entry);
-    } else {
-      this.entryService.insert$(this.entry).subscribe((entry) => this.entry = entry)
-    }
+
+    //TODO: Remove unnessecary attributes
+
+    this.saveEntry.emit(this.entry);
   }
 
   public changeCategory(category: Category): void {
     this.isOperationInProgress = true;
-    if (this.entry?.category?.id === category.id) {
+    if (this.entry?.project?.category?.id === category.id) {
       return;
     }
-    this.entry.category = category;
+    this.entry.project = {} as  Project;
+    this.entry.project.category = category;
+    this.updateProjectsOfCategory(category);
 
     this.isOperationInProgress = false;
+  }
+
+  private updateProjectsOfCategory(category: Category): void {
+    if (!category?.id){
+      return;
+    }
+    this.categoryService.findProjectsByCategory(category.id).subscribe((projects) => {
+      this.projectsOfCategory = projects;
+    });
   }
 
   public changeUser(user: User): void {
@@ -90,5 +106,15 @@ export class EntryLiComponent implements OnInit {
       this.deleteEntry.emit(this.entry);
     }
     this.entryService.delete$(this.entry).subscribe(() => this.deleteEntry.emit(this.entry));
+  }
+
+  public changeProject(project: Project): void {
+    this.isOperationInProgress = true;
+    if (this.entry?.project?.id === project.id) {
+      return;
+    }
+    this.entry.project = project;
+
+    this.isOperationInProgress = false;
   }
 }

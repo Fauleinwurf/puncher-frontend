@@ -1,6 +1,6 @@
 <li [class.new-entry]="!entry?.id">
   <div class="action-container">
-    <button (click)="save()" mat-fab color="primary" aria-label="Example icon button with a delete icon"
+    <button type="submit" (click)="save()" mat-fab color="primary" aria-label="Example icon button with a delete icon"
             title="Save changes">
       <mat-icon>save</mat-icon>
     </button>
@@ -19,14 +19,23 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="category" appearance="fill">
-    <mat-label>Select a category:</mat-label>
-    <mat-select [value]="entry?.category?.title">
-      <mat-option *ngFor="let category of categories" (click)="changeCategory(category)"
-                  [value]="category.title">{{category.title}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="category-project-section">
+    <mat-form-field class="category" appearance="fill">
+      <mat-label>Select a category:</mat-label>
+      <mat-select required [value]="entry?.project?.category?.title">
+        <mat-option *ngFor="let category of categories" (click)="changeCategory(category)"
+                    [value]="category.title">{{category.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
+    <mat-form-field class="project" appearance="fill">
+      <mat-label>Select project that you worked on:</mat-label>
+      <mat-select required [value]="entry?.project?.title">
+        <mat-option *ngFor="let project of projectsOfCategory" (click)="changeProject(project)"
+                    [value]="project.title">{{project.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
   <div class="check-in">
     <mat-form-field appearance="fill">

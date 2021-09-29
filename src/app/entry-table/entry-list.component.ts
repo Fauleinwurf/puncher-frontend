@@ -8,6 +8,7 @@ import {Category} from "../../shared/model/category";
 import {forkJoin, Observable} from "rxjs";
 import {UserService} from "../../shared/services/user.service";
 import {User} from "../../shared/model/user";
+import {ProjectService} from "../../shared/services/project.service";
 
 @Component({
   selector: 'app-entry-list',
@@ -19,15 +20,14 @@ export class EntryListComponent implements OnInit {
   public loggedInUser: any;
   public categories: any;
   public users: any;
-  public viewMode: string = 'cardView';
+  public entries: Entry[] = [];
 
   constructor(private entryService: EntryService,
               private authenticationService: AuthenticationService,
               private userService: UserService,
+              private projectService: ProjectService,
               private categoryService: CategoryService) {
   }
-
-  public entries: Entry[] | undefined;
 
   ngOnInit(): void {
     forkJoin([
@@ -62,7 +62,25 @@ export class EntryListComponent implements OnInit {
   }
 
   public addEntry():void {
-    this.entries?.unshift({} as Entry);
-    console.log(this.entries)
+    this.entries.unshift({} as Entry);
+
+    console.log(this.entries);
+  }
+
+  public saveEntry(entryToSave: Entry) {
+    if (entryToSave?.id) {
+      this.entryService.update$(entryToSave).subscribe((entry) => entryToSave = entry);
+    } else {
+      entryToSave.project.id = 1;
+      this.entryService.insert$(entryToSave).pipe(
+        tap((entry) => {
+          entryToSave = entry;
+          let itemIndex = this.entries.findIndex(entry => entry === entryToSave);
+          this.entries[itemIndex + 1] = entryToSave;
+        })
+      ).subscribe()
+      }
+
+
   }
 }

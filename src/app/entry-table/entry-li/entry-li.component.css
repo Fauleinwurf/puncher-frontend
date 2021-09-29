@@ -11,7 +11,7 @@ mat-form-field {
   width: 45%;
 }
 
-.check-in mat-form-field, .check-out mat-form-field {
+.check-in mat-form-field, .check-out mat-form-field, .category-project-section mat-form-field {
   margin-right: 16px;
 }
 
