@@ -80,7 +80,10 @@ export class EntryListComponent implements OnInit {
         })
       ).subscribe()
       }
+  }
 
-
+  public deleteEntry(entry: Entry): void {
+    let itemIndex = this.entries.indexOf(entry);
+    this.entries.splice(itemIndex,1);
   }
 }

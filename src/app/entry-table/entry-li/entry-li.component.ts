@@ -102,10 +102,10 @@ export class EntryLiComponent implements OnInit {
   }
 
   public delete(): void {
-    if (!this.entry.id) {
-      this.deleteEntry.emit(this.entry);
+    if (this.entry.id) {
+      this.entryService.delete$(this.entry).subscribe();
     }
-    this.entryService.delete$(this.entry).subscribe(() => this.deleteEntry.emit(this.entry));
+    this.deleteEntry.emit(this.entry);
   }
 
   public changeProject(project: Project): void {
