@@ -8,7 +8,10 @@
 }
 
 div {
+  display: flex;
   overflow: inherit;
+  height: 68px;
+  align-items: center;
 }
 
 a{
