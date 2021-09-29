@@ -8,9 +8,9 @@ import {CategoryListComponent} from "./category-list/category-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'entries', pathMatch: 'full'},
-  {path: 'users', component: UserComponent},
-  {path: 'entries', component: EntryListComponent},
-  {path: 'categories', component: CategoryListComponent},
+  {path: 'users', component: UserComponent,canActivate: [AuthGuard]},
+  {path: 'entries', component: EntryListComponent, canActivate: [AuthGuard]},
+  {path: 'categories', component: CategoryListComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
 
 
