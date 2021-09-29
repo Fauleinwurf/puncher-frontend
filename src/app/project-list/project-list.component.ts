@@ -55,9 +55,8 @@ export class ProjectListComponent implements OnInit {
     if (project?.category?.id === category.id) {
       return;
     }
-    let itemIndex = this.projects.findIndex((project) => project === project);
-    this.projects[itemIndex + 1].category = category;
-    console.log(this.projects);
+    let itemIndex = this.projects.indexOf(project);
+    this.projects[itemIndex].category = category;
   }
 
   public save(projectToSave: Project): void {
