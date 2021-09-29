@@ -57,14 +57,8 @@ export class EntryListComponent implements OnInit {
     );
   }
 
-  public reloadEntries(): void {
-    this.getEntries().subscribe();
-  }
-
   public addEntry():void {
     this.entries.unshift({} as Entry);
-
-    console.log(this.entries);
   }
 
   public saveEntry(entryToSave: Entry) {
