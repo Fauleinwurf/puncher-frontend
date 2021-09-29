@@ -8,12 +8,12 @@ import {User} from "../../shared/model/user";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public user!: User;
+  public loggedInUser: User = {} as User;
 
   constructor(private authenticationService: AuthenticationService,) { }
 
   ngOnInit(): void {
-    this.user = this.authenticationService.getLoggedUser();
+    this.loggedInUser = this.authenticationService.getLoggedUser();
   }
 
   public logout():void {
