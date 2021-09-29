@@ -25,8 +25,8 @@ export class CategoryService implements Service{
 
   }
 
-  public update$(object: any): Observable<any> {
-    return this.http.put<Category>(`${this.configUrl}/${object?.id}`,object);
+  public update$(category: Category): Observable<any> {
+    return this.http.put<Category>(`${this.configUrl}/${category?.id}`,category);
   }
 
   public delete$(category: Category): Observable<any> {

@@ -25,8 +25,8 @@ export class UserService implements Service{
     return this.http.get<User[]>(`${this.configUrl}/${id}`);
   }
 
-  public update$(object: any): Observable<any> {
-    return this.http.put<User>(`${this.configUrl}/${object?.id}`,object);
+  public update$(user: User): Observable<any> {
+    return this.http.put<User>(`${this.configUrl}/${user?.id}`,user);
   }
 
   public delete$(user: User): Observable<void> {
