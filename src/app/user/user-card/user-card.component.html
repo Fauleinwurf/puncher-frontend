@@ -1,6 +1,6 @@
 <mat-card [class.new-user]="!user.id">
   <mat-card-title-group>
-    <mat-card-title>User ({{user?.username}})
+    <mat-card-title>User
     </mat-card-title>
   </mat-card-title-group>
   <mat-card-content>
@@ -10,12 +10,17 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Role:</mat-label>
+      <input type="text" required matInput placeholder="User/Admin" [(ngModel)]="user.role">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
       <mat-label>Password:</mat-label>
-      <input type="password" required matInput placeholder="*********" [(ngModel)]="user.password">
+      <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="Minimum eight characters, at least one letter and one number" required matInput placeholder="*********" [(ngModel)]="user.password">
     </mat-form-field>
 
     <div class="action-container">
-      <button (click)="save()" mat-fab color="primary" aria-label="Example icon button with a delete icon" title="Save user">
+      <button type="submit" (click)="save()" mat-fab color="primary" aria-label="Example icon button with a delete icon" title="Save user">
         <mat-icon>save</mat-icon>
       </button>
 

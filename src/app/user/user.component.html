@@ -1,12 +1,19 @@
 <h1>Your User</h1>
 <div>
-  <app-user-card [user]="loggedInUser" [loggedInUser]="loggedInUser" ></app-user-card>
+  <app-user-card [user]="loggedInUser"
+                 (saveUser)="saveUser($event)"
+                 (deleteUser)="deleteUser($event)"></app-user-card>
 </div>
 
 <ng-container *ngIf="loggedInUser.role === 'admin'">
   <h2>Other Users</h2>
+  <div class="action-container">
+    <button *ngIf="loggedInUser" class="action-container" (click)="addUser()" mat-fab color="primary"
+            aria-label="Example icon button with a note_add icon" title="Add entry">
+      <mat-icon>note_add</mat-icon>
+    </button>
+  </div>
   <div>
-    <app-user-card *ngFor="let user of users" [user]="user" [users]="users"
-                   [loggedInUser]="loggedInUser"></app-user-card>
+    <app-user-card *ngFor="let user of users" [user]="user" [users]="users"></app-user-card>
   </div>
 </ng-container>

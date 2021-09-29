@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../shared/model/user";
 import {UserService} from "../../shared/services/user.service";
 import {AuthenticationService} from "../../shared/services/authentication.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-user',
@@ -10,7 +11,7 @@ import {AuthenticationService} from "../../shared/services/authentication.servic
 })
 export class UserComponent implements OnInit {
   public users: User[] = [];
-  public loggedInUser: User | any;
+  public loggedInUser = this.authenticationService.getLoggedUser();
 
   constructor(
     private userService: UserService,
@@ -19,17 +20,50 @@ export class UserComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.userService.findAll$().subscribe((users) => this.users = users);
-    this.loggedInUser = this.authenticationService.getLoggedUser();
-    let tempUser = this.users.find(user => user.id === this.loggedInUser.id);
-    if (tempUser) {
-      const loggedInUserIndex: number = this.users?.indexOf(tempUser);
-      if (loggedInUserIndex !== -1) {
-        console.log(loggedInUserIndex);
-        this.users?.splice(loggedInUserIndex, 1);
-      }
+    if (this.loggedInUser.role === 'admin'){
+      this.loadUsers();
     }
   }
 
+  public addUser(): void {
+    this.users.unshift({} as User);
+  }
 
+  public saveUser(userToSave: User):void {
+    if (userToSave?.id) {
+      this.userService.update$(userToSave).subscribe((user) => userToSave = user);
+    } else {
+      this.userService.insert$(userToSave).pipe(
+        tap((user) =>  {
+          userToSave = user;
+          let itemIndex = this.users.findIndex(user => user === userToSave);
+          this.users[itemIndex + 1] = userToSave;
+        })
+      ).subscribe();
+    }
+    this.logoutIfLoggedInUserEqualsUser(userToSave);
+  }
+
+  public deleteUser(userToDelete: User):void {
+
+    this.userService.delete$(userToDelete).subscribe();
+    //this.loadUsers();
+    this.logoutIfLoggedInUserEqualsUser(userToDelete);
+  }
+
+  private logoutIfLoggedInUserEqualsUser(user: User): void{
+    if (user.id === this.loggedInUser.id) {
+      this.authenticationService.logout();
+    }
+  }
+
+  private loadUsers():void {
+    this.userService.findAll$().pipe(
+      tap((users) => {
+        this.users = users;
+        let itemIndex = this.users.indexOf(this.loggedInUser);
+        this.users.splice(itemIndex,1);
+      })
+    ).subscribe();
+  }
 }
