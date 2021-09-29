@@ -3,6 +3,7 @@ import {Category} from "../../shared/model/category";
 import {User} from "../../shared/model/user";
 import {AuthenticationService} from "../../shared/services/authentication.service";
 import {CategoryService} from "../../shared/services/category.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-category-list',
@@ -10,7 +11,7 @@ import {CategoryService} from "../../shared/services/category.service";
   styleUrls: ['./category-list.component.css']
 })
 export class CategoryListComponent implements OnInit {
-  public categories: Category[] | any;
+  public categories: Category[] = [];
   public loggedInUser: User | any;
 
   constructor(
@@ -26,16 +27,23 @@ export class CategoryListComponent implements OnInit {
     this.categories.unshift({} as Category);
   }
 
-  public save(unsavedCategory: Category): void {
-    if (unsavedCategory?.id) {
-      this.categoryService.update$(unsavedCategory).subscribe((category) => unsavedCategory = category);
+  public save(categoryToSave: Category): void {
+    if (categoryToSave?.id) {
+      this.categoryService.update$(categoryToSave).subscribe((category) => categoryToSave = category);
     } else {
-      this.categoryService.insert$(unsavedCategory).subscribe((category) => unsavedCategory = category)
+      this.categoryService.insert$(categoryToSave).pipe(
+        tap( (category) =>{
+          categoryToSave = category;
+          let itemIndex = this.categories.findIndex((category) => category === categoryToSave);
+          this.categories[itemIndex + 1] = categoryToSave;
+        })
+      ).subscribe()
     }
   }
 
-  private removeFromCategories(category: Category): void{
-
+  private removeFromCategories(categoryToRemove: Category): void{
+    let itemIndex = this.categories.indexOf(categoryToRemove);
+    this.categories.splice(itemIndex,1);
   }
 
   public delete(category: Category):void {
