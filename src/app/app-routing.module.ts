@@ -5,12 +5,14 @@ import {EntryListComponent} from "./entry-table/entry-list.component";
 import {AuthGuard} from "../shared/auth-guard";
 import {UserComponent} from "./user/user.component";
 import {CategoryListComponent} from "./category-list/category-list.component";
+import {ProjectListComponent} from "./project-list/project-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'entries', pathMatch: 'full'},
   {path: 'users', component: UserComponent,canActivate: [AuthGuard]},
   {path: 'entries', component: EntryListComponent, canActivate: [AuthGuard]},
   {path: 'categories', component: CategoryListComponent, canActivate: [AuthGuard]},
+  {path: 'projects', component: ProjectListComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
 
 

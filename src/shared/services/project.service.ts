@@ -17,16 +17,15 @@ export class ProjectService implements Service{
 
   }
 
-  public findAll$(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.configUrl);
+  public findAll$(): Observable<Project[]> {
+    return this.http.get<Project[]>(this.configUrl);
   }
 
-  public findById$(id:number): Observable<Category> {
-    return this.http.get<Category>(`${this.configUrl}/${id}`);
-
+  public findById$(id:number): Observable<Project> {
+    return this.http.get<Project>(`${this.configUrl}/${id}`);
   }
 
-  public update$(project: Project): Observable<any> {
+  public update$(project: Project): Observable<Project> {
     return this.http.put<Project>(`${this.configUrl}/${project?.id}`,project);
   }
 
@@ -34,7 +33,7 @@ export class ProjectService implements Service{
     return this.http.delete<void>(`${this.configUrl}/${project?.id}`);
   }
 
-  public insert$(project: Project): Observable<any> {
+  public insert$(project: Project): Observable<Project> {
     return this.http.post<Project>(`${this.configUrl}`,project);
   }
 

@@ -1,0 +1,45 @@
+<h1 *ngIf="projects?.length === 0">You currently have no entries!</h1>
+
+<div class="action-container" *ngIf="loggedInUser?.role === 'admin'">
+  <button class="action-container" (click)="addProject()" mat-fab color="primary"
+          aria-label="Example icon button with a note_add icon" title="Add category">
+    <mat-icon>note_add</mat-icon>
+  </button>
+</div>
+<div>
+  <ng-container *ngFor="let project of projects">
+    <mat-card [class.new-category]="!project?.id">
+      <mat-card-title-group>
+        <mat-card-title>
+          <mat-form-field appearance="fill">
+            <mat-label>Title:</mat-label>
+            <input required matInput placeholder="HR" [(ngModel)]="project.title">
+          </mat-form-field>
+        </mat-card-title>
+      </mat-card-title-group>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Select a category:</mat-label>
+          <mat-select required [value]="project?.category?.title">
+            <mat-option *ngFor="let category of categories" (click)="changeCategory(project,category)"
+                        [value]="category?.title">{{category?.title}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="action-container">
+          <button (click)="save(project)" mat-fab color="primary" aria-label="Example icon button with a delete icon"
+                  title="Save category">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button (click)="delete(project)" mat-fab color="primary" aria-label="Example icon button with a delete icon"
+                  title="Delete category">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>
+
+

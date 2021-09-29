@@ -29,6 +29,7 @@ import {EntryLiComponent} from './entry-table/entry-li/entry-li.component';
 import { UserComponent } from './user/user.component';
 import { UserCardComponent } from './user/user-card/user-card.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
     EntryLiComponent,
     UserComponent,
     UserCardComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    ProjectListComponent
   ],
     imports: [
         BrowserModule,

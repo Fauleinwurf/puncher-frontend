@@ -1,0 +1,38 @@
+mat-card {
+  max-width: 30%;
+  margin: 24px 5%;
+  align-self: center;
+}
+
+mat-form-field {
+  font-size: 1.2em;
+  width: 100%;
+}
+
+.action-container button {
+  margin: 16px auto auto;
+}
+
+mat-card.new-category {
+  background-color: #FED000;
+}
+
+div.action-container {
+  flex-direction: row;
+}
+
+div button{
+  margin: 16px auto auto;
+}
+
+h1 {
+  color: aliceblue;
+  text-align: center;
+  margin-top: 16px;
+}
+
+div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
