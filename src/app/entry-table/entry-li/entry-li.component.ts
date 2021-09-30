@@ -34,8 +34,7 @@ export class EntryLiComponent implements OnInit {
   public isOperationInProgress = false;
   public projectsOfCategory: Project[] = [];
 
-  constructor(private entryService: EntryService,
-              private categoryService: CategoryService,
+  constructor(private categoryService: CategoryService,
               public datepipe: DatePipe
   ) {
   }
@@ -65,7 +64,8 @@ export class EntryLiComponent implements OnInit {
     console.log(checkInString)
     this.entry.checkOut = new Date(checkOutString);
 
-    //TODO: Remove unnessecary attributes
+    //Removing unnecessary attribute before save
+    this.entry.user.password = "";
 
     this.saveEntry.emit(this.entry);
   }
@@ -102,9 +102,6 @@ export class EntryLiComponent implements OnInit {
   }
 
   public delete(): void {
-    if (this.entry.id) {
-      this.entryService.delete$(this.entry).subscribe();
-    }
     this.deleteEntry.emit(this.entry);
   }
 

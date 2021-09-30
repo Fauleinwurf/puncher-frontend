@@ -77,7 +77,10 @@ export class EntryListComponent implements OnInit {
   }
 
   public deleteEntry(entry: Entry): void {
+    if (entry.id) {
+      this.entryService.delete$(entry).subscribe();
+    }
     let itemIndex = this.entries.indexOf(entry);
-    this.entries.splice(itemIndex,1);
+    this.entries.splice(itemIndex, 1);
   }
 }
