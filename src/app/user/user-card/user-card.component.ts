@@ -23,7 +23,6 @@ export class UserCardComponent {
     if (regex.test(this.user.password)){
       this.saveUser.emit(this.user);
     }
-    console.log("matched")
   }
 
   public delete(): void {
