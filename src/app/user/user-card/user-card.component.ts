@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {User} from "../../../shared/model/user";
 
 @Component({
@@ -9,6 +9,8 @@ import {User} from "../../../shared/model/user";
 export class UserCardComponent {
   @Input()
   public user!: User;
+  @Input()
+  public loggedInUser!: User;
   @Input()
   public users: User[] = [];
 

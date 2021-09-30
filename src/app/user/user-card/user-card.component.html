@@ -11,7 +11,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Role:</mat-label>
-      <input type="text" required matInput placeholder="User/Admin" [(ngModel)]="user.role">
+      <input type="text" required [disabled]="loggedInUser.role != 'admin'" matInput placeholder="User/Admin" [(ngModel)]="user.role">
     </mat-form-field>
 
     <mat-form-field appearance="fill">

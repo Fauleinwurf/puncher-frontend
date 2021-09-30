@@ -1,6 +1,7 @@
 <h1>Your User</h1>
 <div>
   <app-user-card [user]="loggedInUser"
+                 [loggedInUser]="loggedInUser"
                  (saveUser)="saveUser($event)"
                  (deleteUser)="deleteUser($event)"></app-user-card>
 </div>
@@ -15,6 +16,7 @@
   </div>
   <div>
     <app-user-card *ngFor="let user of users"
+                   [loggedInUser]="loggedInUser"
                    (saveUser)="saveUser($event)"
                    (deleteUser)="deleteUser($event)"
                    [user]="user"
