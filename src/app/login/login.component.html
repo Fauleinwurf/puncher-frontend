@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h1>Login</h1>
+  <h1>{{mode === 'login' ? 'Login' : 'Register'}}</h1>
 
   <mat-form-field appearance="fill">
     <mat-label>Username</mat-label>
@@ -7,12 +7,19 @@
            autocomplete="off" [(ngModel)]="username" required/>
   </mat-form-field>
 
+  <mat-form-field appearance="fill" *ngIf="mode === 'register'">
+    <mat-label>Role</mat-label>
+    <input matInput placeholder="User/Admin" type="text"
+           autocomplete="off" [(ngModel)]="role" required/>
+  </mat-form-field>
+
   <mat-form-field appearance="fill">
     <mat-label>Password</mat-label>
     <input matInput type="password" [(ngModel)]="password" required/>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="login()">Log in</button>
+  <button mat-raised-button color="primary" (click)="login()">{{mode === 'login' ? 'Log in' : 'Sign in'}}</button>
+  <button *ngIf="mode === 'login'" mat-raised-button color="primary" (click)="mode = 'register'">Register</button>
   <div *ngIf="error" class="alert">
     Either password or username are wrong
   </div>

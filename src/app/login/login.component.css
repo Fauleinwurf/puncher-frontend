@@ -33,3 +33,6 @@ mat-form-field {
   font-size: 1.4em;
 }
 
+button {
+  margin-bottom: 8px;
+}
