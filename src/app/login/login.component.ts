@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         .pipe(
           tap((response) => {
             if (response) {
-              this.router.navigate([this.returnUrl ? this.returnUrl : '/entries']);
+              window.location.replace('/entries');
             }
           }),
           catchError((err) => {
