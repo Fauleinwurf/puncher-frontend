@@ -21,8 +21,8 @@ export class UserService implements Service{
     return this.http.get<User[]>(this.configUrl);
   }
 
-  public findById$(id:number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.configUrl}/${id}`);
+  public findById$(id:number): Observable<User> {
+    return this.http.get<User>(`${this.configUrl}/${id}`);
   }
 
   public update$(user: User): Observable<any> {

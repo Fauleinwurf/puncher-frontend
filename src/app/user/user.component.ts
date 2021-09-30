@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
     this.userService.findAll$().pipe(
       tap((users) => {
         this.users = users;
-        let itemIndex = this.users.indexOf(this.loggedInUser);
+        let itemIndex = this.users.findIndex((user) => user.id === this.loggedInUser.id);
         this.users.splice(itemIndex,1);
       })
     ).subscribe();
