@@ -21,7 +21,7 @@ export class UserCardComponent {
   }
 
   public save(): void {
-      const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$');
+      const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$');
     if (regex.test(this.user.password)){
       this.saveUser.emit(this.user);
     }
