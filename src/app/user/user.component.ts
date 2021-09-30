@@ -3,6 +3,7 @@ import {User} from "../../shared/model/user";
 import {UserService} from "../../shared/services/user.service";
 import {AuthenticationService} from "../../shared/services/authentication.service";
 import {tap} from "rxjs/operators";
+import {Role} from "../../shared/model/role";
 
 @Component({
   selector: 'app-user',
