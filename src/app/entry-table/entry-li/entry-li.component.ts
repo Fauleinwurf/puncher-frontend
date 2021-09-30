@@ -57,12 +57,10 @@ export class EntryLiComponent implements OnInit {
 
   public save(): void {
     let checkInString = this.datepipe.transform(this.chekIn.value, 'yyyy-MM-dd') + 'T' + this.chekInTime;
-    console.log(checkInString)
     this.entry.checkIn = new Date(checkInString);
 
     let checkOutString = this.datepipe.transform(this.chekOut.value, 'yyyy-MM-dd') + 'T' + this.chekOutTime;
-    console.log(checkInString)
-    this.entry.checkOut = new Date(checkOutString);
+    this.entry.checkOut = new Date();
 
     //Removing unnecessary attribute before save
     this.entry.user.password = "";
