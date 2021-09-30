@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   public username: string = "";
   public password: string = "";
   public error: boolean | undefined;
+  public returnUrl = "/entries";
 
   constructor(private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
@@ -19,6 +20,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'];
+    });
   }
 
   login(): void {
@@ -26,7 +30,7 @@ export class LoginComponent implements OnInit {
       .pipe(
         tap((response) => {
           if (response){
-            this.router.navigate([''])
+            this.router.navigate([this.returnUrl ? this.returnUrl: '/entries']);
           }
         })
   ).subscribe();
