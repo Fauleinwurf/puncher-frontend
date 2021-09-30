@@ -8,9 +8,9 @@ import {User} from "../../../shared/model/user";
 })
 export class UserCardComponent {
   @Input()
-  public user: User | any;
+  public user!: User;
   @Input()
-  public users: User[] | any
+  public users: User[] = [];
 
   @Output() deleteUser = new EventEmitter<User>();
   @Output() saveUser = new EventEmitter<User>();
@@ -19,9 +19,11 @@ export class UserCardComponent {
   }
 
   public save(): void {
-    if (this.user.password){
+      const regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$');
+    if (regex.test(this.user.password)){
       this.saveUser.emit(this.user);
     }
+    console.log("matched")
   }
 
   public delete(): void {

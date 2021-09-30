@@ -14,6 +14,10 @@
     </button>
   </div>
   <div>
-    <app-user-card *ngFor="let user of users" [user]="user" [users]="users"></app-user-card>
+    <app-user-card *ngFor="let user of users"
+                   (saveUser)="saveUser($event)"
+                   (deleteUser)="deleteUser($event)"
+                   [user]="user"
+                   [users]="users"></app-user-card>
   </div>
 </ng-container>

@@ -16,7 +16,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Password:</mat-label>
-      <input type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" title="Minimum eight characters, at least one letter and one number" required matInput placeholder="*********" [(ngModel)]="user.password">
+      <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Minimum eight characters, at least one letter and one number" required matInput placeholder="*********" [(ngModel)]="user.password">
     </mat-form-field>
 
     <div class="action-container">

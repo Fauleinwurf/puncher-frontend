@@ -44,11 +44,13 @@ export class UserComponent implements OnInit {
     this.logoutIfLoggedInUserEqualsUser(userToSave);
   }
 
-  public deleteUser(userToDelete: User):void {
-
-    this.userService.delete$(userToDelete).subscribe();
-    //this.loadUsers();
-    this.logoutIfLoggedInUserEqualsUser(userToDelete);
+  public deleteUser(userToRemove: User):void {
+    if (this.loggedInUser.role === 'admin') {
+      let itemIndex = this.users.indexOf(userToRemove);
+      this.users.splice(itemIndex, 1);
+    }
+    this.userService.delete$(userToRemove).subscribe();
+    this.logoutIfLoggedInUserEqualsUser(userToRemove);
   }
 
   private logoutIfLoggedInUserEqualsUser(user: User): void{
