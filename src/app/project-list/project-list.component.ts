@@ -73,12 +73,15 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
-  private removeFromCategories(projectToRemove: Project): void {
+  private removeFromProjects(projectToRemove: Project): void {
     let itemIndex = this.projects.indexOf(projectToRemove);
     this.projects.splice(itemIndex, 1);
   }
 
   public delete(project: Project): void {
-    this.projectService.delete$(project).subscribe(() => this.removeFromCategories(project));
+    if (project.id){
+      this.projectService.delete$(project).subscribe();
+    }
+    this.removeFromProjects(project);
   }
 }
